@@ -21,7 +21,7 @@ import Vegas EDL into After Effects
 
     then
 
-  - run it from the <kbd>file</kbd>><kbd>scripts</kbd>><kbd>run script file</kbd>><kbd>stopMotion.jsx</kbd> or <kbd>window</kbd>>choose <kbd>stopMotion.jsx</kbd>
+  - run it from the <kbd>file</kbd>><kbd>scripts</kbd>><kbd>run script file</kbd>><kbd>importEDL.jsx</kbd> or <kbd>window</kbd>>choose <kbd>importEDL.jsx</kbd>
 
 ### Compatibility
 
