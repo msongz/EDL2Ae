@@ -27,6 +27,8 @@ import Vegas EDL into After Effects
 
   after effects `cc 2015` `cc 2014` `cc` `cs6` `cs5` `or older`
   
+  sony vegas `only test on 13.453`
+  
 ### Version
 
  - 2.0 
