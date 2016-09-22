@@ -1,6 +1,8 @@
 # importEDL
 import Vegas EDL into After Effects
 
+![gif](http://ww1.sinaimg.cn/large/66e22e28gw1f82hvxyecgg20qo0f47wh.gif)
+
 ### Description
 
   - localization `for English and Chinese`
@@ -8,6 +10,8 @@ import Vegas EDL into After Effects
   - support stretched `detect layers stretched and place it properly ` 
 
   - support missing files `if media files missed will import placeholder instead`
+
+  - unsupport fade in / out `next version will fixed` 
   
 ### Usage & Installation
 
