@@ -1,21 +1,21 @@
-﻿function loc(a) {
-	return "zh_CN" == app.isoLanguage ? a.cn : a.en
+function loc(text) {
+	return "zh_CN" == app.isoLanguage ? text.cn : text.en
 }
 function strObj() {
+	this.version = "2.0";
+	this.copyRight = "Copyright (c) 2016 songz meng";
+	this.Homepage = "weibo.com/songz";	
 	this.title = {
 		cn: "\u5bfc\u5165 EDL",
 		en: "import EDL"
 	};
-	this.version = "2.0";
-	this.copyRight = "Copyright (c) 2016 songz meng";
-	this.Homepage = "weibo.com/songz";
 	this.path = {
 		cn: "\u8def\u5f84:",
 		en: "path:"
 	};
-	this.help = {
-		cn: "",
-		en: ""
+	this.noFile = {
+		cn: "\u6587\u4ef6\u4e0d\u5b58\u5728",
+		en: "file not exists"
 	};
 	this.imPort = {
 		cn: "\u5bfc\u5165",
@@ -75,50 +75,87 @@ function strObj() {
 	}
 }
 function edlHelp() {
-	var a = "group { orientation:'column', alignment:['fill','fill'], alignChildren:['fill','fill'], \r\n                            pnl: Panel { type:'tabbedpanel', \r\n                                aboutTab: Panel { type:'tab', text:'" + loc(str.descript) + "', \r\n                                aboutEt: EditText { text:'" + loc(str.about) + "', preferredSize:[200,100], properties:{multiline:true} } \r\n                            }, \r\n                                usageTab: Panel { type:'tab', text:'" + loc(str.use) + "', \r\n                                usageEt: EditText { text:'" + loc(str.usage) + "', preferredSize:[200,100], properties:{multiline:true} } \r\n                        } \r\n                    }, \r\n                    btns: Group { orientation:'row', alignment:['fill','bottom'], \r\n                        otherScriptsBtn: Button { text:'" + loc(str.otherScript) + "', alignment:['left','center'] }, \r\n                        okBtn: Button { text:'" + loc(str.cancel) + "', alignment:['right','center'] } \r\n                } \r\n            }",
-		b = new Window("palette", loc(str.abt));
-	b.gr = b.add(a);
-	b.gr.btns.otherScriptsBtn.onClick = function() {
-		var cmd = "";
-		var url = "http://github.com/msongz";
-		if ($.os.indexOf("Win") != -1) {
-			if (File("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe").exists) {
-				cmd += "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe " + url
-			} else if (File("C:/Program Files (x86)/Mozilla Firefox/firefox.exe").exists) {
-				cmd += "C:/Program Files (x86)/Mozilla Firefox/firefox.exe " + url
-			} else {
-				cmd += "C:/Program Files/Internet Explorer/iexplore.exe " + url
-			}
-		} else {
+    var res ="group { orientation:'column', alignment:['fill','fill'], alignChildren:['fill','fill'], \
+                            pnl: Panel { type:'tabbedpanel', \
+                                aboutTab: Panel { type:'tab', text:'" + loc(str.descript) + "', \
+                                aboutEt: EditText { text:'" + loc(str.about) + "', preferredSize:[200,100], properties:{multiline:true} } \
+                            }, \
+                                usageTab: Panel { type:'tab', text:'" + loc(str.use) + "', \
+                                usageEt: EditText { text:'" + loc(str.usage) + "', preferredSize:[200,100], properties:{multiline:true} } \
+                        } \
+                    }, \
+                    btns: Group { orientation:'row', alignment:['fill','bottom'], \
+                        otherScriptsBtn: Button { text:'" + loc(str.otherScript) + "', alignment:['left','center'] }, \
+                        okBtn: Button { text:'" + loc(str.cancel) + "', alignment:['right','center'] } \
+                } \
+            }";	
+    var helpWin = new Window("palette", loc(str.abt));
+    helpWin.gr = helpWin.add(res);
+    helpWin.gr.btns.otherScriptsBtn.onClick = function() {
+    var cmd = "";
+    var url = "http://github.com/msongz";
+    if ($.os.indexOf("Win") != -1) {
+        if (File("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe").exists) {
+            cmd += "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe " + url
+        } else if (File("C:/Program Files (x86)/Mozilla Firefox/firefox.exe").exists) {
+            cmd += "C:/Program Files (x86)/Mozilla Firefox/firefox.exe " + url
+            } else {
+                cmd += "C:/Program Files/Internet Explorer/iexplore.exe " + url
+        }
+        } else {
 			cmd += "open \"" + url + "\""
-		}		try {
+		}
+		try {
 			system.callSystem(cmd)
-		} catch (b) {
-			alert(b)
+		} catch (e) {
+			alert(e)
 		}
 	};
-	b.gr.btns.okBtn.onClick = function() {
-		b.close()
+	helpWin.gr.btns.okBtn.onClick = function() {
+		helpWin.close()
 	};
-	b.center();
-	b.show()
+	helpWin.center();
+	helpWin.show()
 }
 function buildUI() {
 	str = new strObj;
-	var a = "palette { text:'" + str.copyRight + "',\r\n                info:Panel { orientation: 'column', alignChildren:'fill', text: '" + loc(str.title) + "', \r\n                                g1: Group { orientation: 'row', \r\n                                                    s: StaticText { text:'" + loc(str.path) + "' }, \r\n                                                    e: EditText { characters: 20 }, \r\n                                                    b: Button { text:'...',preferredSize:[35,23]}\r\n                                          },\r\n                                g2: Group { orientation:'row',alignment:'',\r\n                                                    c1: Checkbox { alignment:'left',text:'" + loc(str.Audio) + "'}, \r\n                                                    c2: Checkbox { alignment:'right',text:'allow fade in/out'}\r\n                                          }\r\n                            }, \r\n              \tcomp:Panel{orientation:'row',alignment:'fill',text:'" + loc(str.compSet) + "',\r\n\t\t                        g3: Group { orientation: 'row',\r\n\t\t                                        width:StaticText{text:'" + loc(str.width) + "'},\r\n\t\t                                        edtxw: EditText{characters:3},\r\n\t\t                                        height:StaticText{text:'" + loc(str.height) + "'},\r\n\t\t                                        edtxh: EditText{characters:3},\r\n\t\t                                        rate:StaticText{text:'" + loc(str.fps) + "'},\r\n\t\t                                        edtxr: EditText{characters:4}\r\n\t\t                                        }\r\n\t\t                                    },\r\n\t\t          btns: Group { orientation: 'row', \r\n\t\t                                        okBtn: Button { text:'" + loc(str.imPort) + "'},\r\n\t\t                                        cancelBtn: Button { text:'" + loc(str.cancel) + "'},\r\n                                                 \r\n\t\t                            },\r\n                   helpBtn: Button{text:'?',alignment:'right',preferredSize:[25,25]}\r\n\t}";
-	win = new Window(a);
+	var res = "palette { text:'" + str.copyRight + "',\
+	                info:Panel { orientation: 'column', alignChildren:'fill', text: '" + loc(str.title) + "', \
+							g1: Group { orientation: 'row', \
+								s: StaticText { text:'" + loc(str.path) + "' }, \
+								e: EditText { characters: 20 }, \
+								b: Button { text:'...',preferredSize:[35,23]}\
+							},\
+							g2: Group { orientation:'row',alignment:'',\
+								c1: Checkbox { alignment:'left',text:'" + loc(str.Audio) + "'}, \
+								c2: Checkbox { alignment:'right',text:'allow fade in/out'}\
+							}\
+					}, \
+					comp:Panel{orientation:'row',alignment:'fill',text:'" + loc(str.compSet) + "',\
+						g3: Group { orientation: 'row',\
+								width:StaticText{text:'" + loc(str.width) + "'},\
+								edtxw: EditText{characters:3},\
+								height:StaticText{text:'" + loc(str.height) + "'},\
+								edtxh: EditText{characters:3},\
+								rate:StaticText{text:'" + loc(str.fps) + "'},\
+								edtxr: EditText{characters:4}\
+						}\
+					},\
+					btns: Group { orientation: 'row', \
+					okBtn: Button { text:'" + loc(str.imPort) + "'},\
+					cancelBtn: Button { text:'" + loc(str.cancel) + "'},\
+					},\
+					helpBtn: Button{text:'?',alignment:'right',preferredSize:[25,25]}\
+				}";
+	win = new Window(res);
 	win.info.g2.c2.visible = !1;
 	win.comp.g3.edtxw.text = 1920;
-	win.comp.g3.edtxw.onChange = validNum;
 	win.comp.g3.edtxh.text = 1080;
-	win.comp.g3.edtxh.onChange = validNum;
 	win.comp.g3.edtxr.text = "25.00";
-	win.comp.g3.edtxr.onChange = validNum;
+	win.comp.g3.edtxr.onChange = win.comp.g3.edtxh.onChange = win.comp.g3.edtxw.onChange = validNum;
 	win.info.g1.b.onClick = function() {
-		var a = File.openDialog(loc(str.fileSelect), "*.txt;*.edl", !1);
-		filexx = a;
-		win.info.g1.e.text = a.fsName;
-		return filexx
+		var txtFile = File.openDialog(loc(str.fileSelect), "*.txt;*.edl", !1);
+		win.info.g1.e.text = txtFile ? txtFile.fsName : win.info.g1.e.text
 	};
 	win.btns.cancelBtn.onClick = function() {
 		win.close()
@@ -127,94 +164,98 @@ function buildUI() {
 	win.helpBtn.onClick = edlHelp;
 	win.show()
 }
-buildUI();
-
 function validNum() {
-	var a = this.text;
-	if (isNaN(a) || 0 > a) this.text = 1
+	var inPut = this.text;
+	if (isNaN(inPut) || 4 > inPut) this.text = 4
 }
-function Max(a) {
-	return Math.max.apply(null, a)
+function Max(arr) {
+	return Math.max.apply(null, arr)
 }
-function read(a) {
-	var b = [];
-	if (a.exists) {
-		for (a.open("r"); !a.eof;) b[b.length] = a.readln().split(";");
-		a.close()
-	} else alert("no file");
-	return b
+function read(txt) {
+	var txtRead = [];
+	if (txt.exists) {
+		for (txt.open("r"); !txt.eof;) txtRead[txtRead.length] = txt.readln().split(";");
+		txt.close()
+	} else alert(loc(str.noFile));
+	return txtRead
 }
-function clean(a) {
+function clean(text) {
 	reg1 = /^\s/;
 	reg2 = /"/g;
-	if ("string" == typeof a) return a.replace(reg1, "").replace(reg2, "")
+	return text.replace(reg1, "").replace(reg2, "")
 }
-function map(a, b) {
-	for (var c = [], d = 0; d < a.length; d++) {
+function map(arr, refer) {
+	for (var txtMap = [], d = 0; d < arr.length; d++) {
 		tempObj = {};
-		refLine = a[b];
-		otherLine = a[d];
+		refLine = arr[refer];
+		otherLine = arr[d];
 		for (x = 0; x < refLine.length; x++) tempObj[clean(refLine[x])] = clean(otherLine[x]);
-		c.push(tempObj)
+		txtMap.push(tempObj)
 	}
-	return c
+	return txtMap
 }
-function uniArr(a) {
+function uniArr(arr) {
 	var b = {},
-		c = [];
-	for (i = 0; i < a.length; i++) b[a[i]] || (c.push(a[i]), b[a[i]] = !0);
-	return c
+		uArr = [];
+	for (i = 0; i < arr.length; i++) b[arr[i]] || (uArr.push(arr[i]), b[arr[i]] = !0);
+	return uArr
 }
-function matchObj(a, b, c) {
-	matchPath = [];
-	matchNum = [];
-	matchAudio = [];
-	matchANum = [];
-	a = map(read(a), 0);
-	for (i = 1; i < a.length; i++) a[i][b] == c ? (matchPath.push(a[i].FileName), matchNum.push(i)) : (matchAudio.push(a[i].FileName), matchANum.push(i));
+function matchObj(txtMap, itemName, itemVal) {
+	var d = [],e = [],f = [],g = [];
+	for (i = 1; i < txtMap.length; i++) txtMap[i][itemName] == itemVal ? (d.push(txtMap[i].FileName), e.push(i)) : (f.push(txtMap[i].FileName), g.push(i));
 	return {
-		arr: a,
-		path: matchPath,
-		num: matchNum,
-		audio: matchAudio,
-		anum: matchANum
+		path: d,
+		num: e,
+		audio: f,
+		anum: g
 	}
 }
-function indexItm(a) {
-	var b = [],
-		c = [];
-	for (i = 0; i < a.length; i++) try {
-		importObj = new ImportOptions(File(File.encode(a[i]))), fileImported = app.project.importFile(importObj), fileImported.parentFolder = edlFolder, b.push(fileImported.id)
-	} catch (d) {
-		fileImported = app.project.importPlaceholder(File(a[i]).displayName, width, height, frameRate, 1E4), fileImported.parentFolder = edlFolder, b.push(fileImported.id)
+function itemIndex(importPath) {
+	var importID = [],
+		importIndex = [];
+	for (i = 0; i < importPath.length; i++) try {
+		importObj = new ImportOptions(File(File.encode(importPath[i]))), fileImported = app.project.importFile(importObj), fileImported.parentFolder = edlFolder, importID.push(fileImported.id)
+	} catch (e) {
+		fileImported = app.project.importPlaceholder(File(importPath[i]).displayName, width, height, frameRate, 1E4), fileImported.parentFolder = edlFolder, importID.push(fileImported.id)
 	}
-	for (t = 0; t < b.length; t++) for (j = 1; j <= aeItem.length; j++) aeItem[j].id == b[t] && c.push(j);
-	return c.sort(function(a, b) {
-		return a - b
-	})
+	for (t = 0; t < importID.length; t++) for (j = 1; j <= aeItem.length; j++) aeItem[j].id == importID[t] && importIndex.push(j);
+	return importIndex
 }
 function exec() {
 	app.beginUndoGroup("import edl");
-	var a = "edl-" + File(win.info.g1.e.text).displayName,
-		b = parseInt(win.comp.g3.edtxw.text),
-		c = parseInt(win.comp.g3.edtxh.text),
-		d = win.comp.g3.edtxr.text;
-	edl = File(File.encode(win.info.g1.e.text));
+	compName = "edl-" + File(win.info.g1.e.text).displayName;
+	width = parseInt(win.comp.g3.edtxw.text);
+	height = parseInt(win.comp.g3.edtxh.text);
+	frameRate = win.comp.g3.edtxr.text;
+	txt = File(File.encode(win.info.g1.e.text));
 	aeItem = app.project.items;
-	edlComp = aeItem.addComp(a, b, c, 1, 100, d);
-	edlFolder = aeItem.addFolder(a);
+	edlComp = aeItem.addComp(compName, width, height, 1, 100, frameRate);
+	edlFolder = aeItem.addFolder(compName);
 	edlComp.parentFolder = edlFolder;
-	mtchVDO = matchObj(edl, "MediaType", "VIDEO");
-	finalPath = uniArr(mtchVDO.path.concat(mtchVDO.audio));
-	finalItemIndex = indexItm(finalPath);
-	matchNumb = win.info.g2.c1.value ? matchNum.concat(matchANum) : matchNum;
-	for (z = 0; z < matchNumb.length; z++) for (w = 0; w < finalItemIndex.length; w++) aeItem[finalItemIndex[w]].name == File(mtchVDO.arr[matchNumb[z]].FileName).displayName && edlComp.layers.add(aeItem[finalItemIndex[w]]).moveToEnd();
+	mapEDL = map(read(txt), 0);
+	typeVDO = matchObj(mapEDL, "MediaType", "VIDEO");
+	finalPath = win.info.g2.c1.value ? uniArr(typeVDO.path.concat(typeVDO.audio)) : uniArr(typeVDO.path);
+	finalIndex = itemIndex(finalPath);
+	mtchNum = win.info.g2.c1.value ? typeVDO.num.concat(typeVDO.anum) : typeVDO.num;
+	for (z = 0; z < mtchNum.length; z++) for (w = 0; w < finalIndex.length; w++) aeItem[finalIndex[w]].name == File(mapEDL[mtchNum[z]].FileName).displayName && edlComp.layers.add(aeItem[finalIndex[w]]).moveToEnd();
 	maxOutPoint = [];
-	for (q = 1; q <= edlComp.numLayers; q++) a = mtchVDO.arr[matchNumb[q - 1]], edlComp.layer(q).audioEnabled = !1, edlComp.layer(q).stretch = 100 / parseInt(a.PlayRate), edlComp.layer(q).startTime = parseInt(a.StartTime) / 1E3 - parseInt(a.StreamStart) / 1E3, edlComp.layer(q).inPoint = parseInt(a.StartTime) / 1E3, edlComp.layer(q).outPoint = parseInt(a.StartTime) / 1E3 + parseInt(a.Length) / 1E3, maxOutPoint.push(edlComp.layer(q).outPoint);
+	for (q = 1; q <= edlComp.numLayers; q++) {
+		var vv = mapEDL[mtchNum[q - 1]],
+			ae = edlComp.layer(q);
+		ae.audioEnabled = !1;
+		ae.stretch = 100 / parseFloat(vv.PlayRate);
+		ae.startTime = (parseFloat(vv.StartTime) - parseFloat(vv.StreamStart)) / 1E3;
+		ae.inPoint = parseFloat(vv.StartTime) / 1E3;
+		ae.outPoint = (parseFloat(vv.StartTime) + parseFloat(vv.Length)) / 1E3;
+		maxOutPoint.push(ae.outPoint)
+	}
 	edlComp.duration = Max(maxOutPoint);
 	try {
-		for (h = matchNum.length; h < edlComp.numLayers; h++) edlComp.layer(h + 1).audioEnabled = !0, edlComp.layer(h + 1).enabled = !1, edlComp.layer(h + 1).label = 2
-	} catch (e) {}
-	app.endUndoGroup();
-	edlComp.openInViewer()
+		for (h = typeVDO.num.length; h < edlComp.numLayers; h++) edlComp.layer(h + 1).audioEnabled = !0, edlComp.layer(h + 1).enabled = !1, edlComp.layer(h + 1).label = 2
+	} catch (e) {
+		alert(e)
+	}
+	edlComp.openInViewer();
+	app.endUndoGroup()
 };
+buildUI();
