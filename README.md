@@ -1,7 +1,7 @@
 # importEDL
 import Vegas EDL into After Effects
 
-![gif](http://ww1.sinaimg.cn/large/66e22e28gw1f82hvxyecgg20qo0f47wh.gif)
+![](http://ww1.sinaimg.cn/large/66e22e28gw1f82hvxyecgg20qo0f47wh.gif)
 
 ### Description
 
