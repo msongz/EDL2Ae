@@ -13,6 +13,8 @@ import Vegas EDL into After Effects
 
   - unsupport fade in / out `next version will fixed` 
   
+  - development details `http://msongz.site/import-edl/`
+  
 ### Usage & Installation
 
   - put the jsx to :open_file_folder: `/ae installation folder/support file/script/`
