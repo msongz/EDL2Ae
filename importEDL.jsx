@@ -179,10 +179,10 @@ function read(txt) {
 	} else alert(loc(str.noFile));
 	return txtRead
 }
+//deepred5 contribute a better reg expression
 function clean(text) {
-	var reg1 = /^\s/;
-	var reg2 = /"/g;
-	return text.replace(reg1, "").replace(reg2, "")
+    var reg = /(^\s+)|(\s+$)|(\")/g;
+    return text.replace(reg, "");
 }
 function map(arr, refer) {
 	for (var txtMap = [], d = 0; d < arr.length; d++) {
