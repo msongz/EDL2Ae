@@ -180,8 +180,8 @@ function read(txt) {
 	return txtRead
 }
 function clean(text) {
-	reg1 = /^\s/;
-	reg2 = /"/g;
+	var reg1 = /^\s/;
+	var reg2 = /"/g;
 	return text.replace(reg1, "").replace(reg2, "")
 }
 function map(arr, refer) {
