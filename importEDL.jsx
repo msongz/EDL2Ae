@@ -2,7 +2,7 @@ function loc(text) {
 	return "zh_CN" == app.isoLanguage ? text.cn : text.en
 }
 function strObj() {
-	this.version = "2.0";
+	this.version = "2.1";
 	this.copyRight = "Copyright (c) 2016 songz meng";
 	this.Homepage = "weibo.com/songz";	
 	this.title = {
@@ -119,34 +119,7 @@ function edlHelp() {
 }
 function buildUI() {
 	str = new strObj;
-	var res = "palette { text:'" + str.copyRight + "',\
-	                info:Panel { orientation: 'column', alignChildren:'fill', text: '" + loc(str.title) + "', \
-							g1: Group { orientation: 'row', \
-								s: StaticText { text:'" + loc(str.path) + "' }, \
-								e: EditText { characters: 20 }, \
-								b: Button { text:'...',preferredSize:[35,23]}\
-							},\
-							g2: Group { orientation:'row',alignment:'',\
-								c1: Checkbox { alignment:'left',text:'" + loc(str.Audio) + "'}, \
-								c2: Checkbox { alignment:'right',text:'allow fade in/out'}\
-							}\
-					}, \
-					comp:Panel{orientation:'row',alignment:'fill',text:'" + loc(str.compSet) + "',\
-						g3: Group { orientation: 'row',\
-								width:StaticText{text:'" + loc(str.width) + "'},\
-								edtxw: EditText{characters:3},\
-								height:StaticText{text:'" + loc(str.height) + "'},\
-								edtxh: EditText{characters:3},\
-								rate:StaticText{text:'" + loc(str.fps) + "'},\
-								edtxr: EditText{characters:4}\
-						}\
-					},\
-					btns: Group { orientation: 'row', \
-					okBtn: Button { text:'" + loc(str.imPort) + "'},\
-					cancelBtn: Button { text:'" + loc(str.cancel) + "'},\
-					},\
-					helpBtn: Button{text:'?',alignment:'right',preferredSize:[25,25]}\
-				}";
+	var res = "palette { text:'" + str.copyRight + "',\r\n                info:Panel { orientation: 'column', alignChildren:'fill', text: '" + loc(str.title) + "', \r\n                                g1: Group { orientation: 'row', \r\n                                                    s: StaticText { text:'" + loc(str.path) + "' }, \r\n                                                    e: EditText { characters: 20 }, \r\n                                                    b: Button { text:'...',preferredSize:[35,23]}\r\n                                          },\r\n                                g2: Group { orientation:'row',alignment:'',\r\n                                                    c1: Checkbox { alignment:'left',text:'" + loc(str.Audio) + "'}, \r\n                                                    c2: Checkbox { alignment:'right',text:'allow fade in/out'}\r\n                                          }\r\n                            }, \r\n                comp:Panel{orientation:'row',alignment:'fill',text:'" + loc(str.compSet) + "',\r\n                            g3: Group { orientation: 'row',\r\n                                            width:StaticText{text:'" + loc(str.width) + "'},\r\n                                            edtxw: EditText{characters:3},\r\n                                            height:StaticText{text:'" + loc(str.height) + "'},\r\n                                            edtxh: EditText{characters:3},\r\n                                            rate:StaticText{text:'" + loc(str.fps) + "'},\r\n                                            edtxr: EditText{characters:4}\r\n                                            }\r\n                                        },\r\n              btns: Group { orientation: 'row', \r\n                                            okBtn: Button { text:'" + loc(str.imPort) + "'},\r\n                                            cancelBtn: Button { text:'" + loc(str.cancel) + "'},\r\n                                                 \r\n                                },\r\n                   helpBtn: Button{text:'?',alignment:'right',preferredSize:[25,25]}\r\n  }";
 	win = new Window(res);
 	win.info.g2.c2.visible = !1;
 	win.comp.g3.edtxw.text = 1920;
@@ -164,6 +137,8 @@ function buildUI() {
 	win.helpBtn.onClick = edlHelp;
 	win.show()
 }
+buildUI();
+
 function validNum() {
 	var inPut = this.text;
 	if (isNaN(inPut) || 4 > inPut) this.text = 4
@@ -176,12 +151,12 @@ function read(txt) {
 	if (txt.exists) {
 		for (txt.open("r"); !txt.eof;) txtRead[txtRead.length] = txt.readln().split(";");
 		txt.close()
+		for (i = 0; i< txtRead.length;i++) for(j = 0;j<txtRead[i].length;j++) txtRead[i][j]=clean(txtRead[i][j]);
 	} else alert(loc(str.noFile));
 	return txtRead
 }
-//deepred5 contribute a better reg expression
 function clean(text) {
-    var reg = /(^\s+)|(\s+$)|(\")/g;
+    var reg = /(^\s)|(\s$)|(\")/g;
     return text.replace(reg, "");
 }
 function map(arr, refer) {
@@ -189,7 +164,7 @@ function map(arr, refer) {
 		tempObj = {};
 		refLine = arr[refer];
 		otherLine = arr[d];
-		for (x = 0; x < refLine.length; x++) tempObj[clean(refLine[x])] = clean(otherLine[x]);
+		for (x = 0; x < refLine.length; x++) tempObj[refLine[x]] = otherLine[x];
 		txtMap.push(tempObj)
 	}
 	return txtMap
@@ -258,4 +233,3 @@ function exec() {
 	edlComp.openInViewer();
 	app.endUndoGroup()
 };
-buildUI();
