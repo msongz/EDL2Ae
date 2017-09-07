@@ -47,7 +47,7 @@ function strObj() {
 	};
 	this.about = {
 		cn: "EDL \u5bfc\u5165\u811a\u672c v2.0.jsx\\nCopyright (c) 2016 songz meng\\nhttp://weibo.com/songz\\n\\n\u6b64\u811a\u672c\u5141\u8bb8\u4f60\u901a\u8fc7\u5bfc\u5165 vegas \u7684 EDL \u6587\u4ef6\u5728 AE \u751f\u6210\u4e00\u6837\u7684\u5408\u6210",
-		en: "EDL import v2.0.jsx\\nCopyright (c) 2016 songz meng\\nhttp://msongz.site\\n\\nthis script allows you import the edl file exported from vegas,and creates the same composition"
+		en: "EDL import v2.0.jsx\\nCopyright (c) 2016 songz meng\\nhttp://weibo.com/songz\\n\\nthis script allows you import the edl file exported from vegas,and creates the same composition"
 	};
 	this.usage = {
 		cn: ">\u9996\u5148\u5728 vegas \u7c97\u526a\\n>\u7136\u540e\u9009\u62e9\u5bfc\u51fa EDL\\n>\u5728 AE \u8fd0\u884c\u6b64\u811a\u672c\\n>\u9009\u62e9\u5bfc\u51fa\u7684 EDL \u5e76\u70b9\u51fb\u5bfc\u5165\\n\\n*\u652f\u6301\u7d20\u6750\u4f38\u7f29\\n*\u652f\u6301\u7d20\u6750\u4e22\u5931",
