@@ -1,4 +1,4 @@
-# importEDL
+# EDL2Ae
 import Vegas EDL into After Effects
 
 ![](http://tva2.sinaimg.com/large/66e22e28gw1f82hvxyecgg20qo0f47wh.gif)
@@ -13,7 +13,6 @@ import Vegas EDL into After Effects
 
   - unsupport fade in / out `next version will fixed` 
   
-  - development details [click here](https://songz.design/blog/import-edl/)
   
 ### Usage & Installation
 
